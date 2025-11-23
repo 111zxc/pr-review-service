@@ -1,0 +1,64 @@
+run:
+  timeout: 5m
+  tests: true
+  modules-download-mode: readonly
+
+linters-settings:
+  stylecheck:
+    checks: ["all", "-ST1000"]
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+
+  gocyclo:
+    min-complexity: 15
+
+  dupl:
+    threshold: 150
+
+  govet:
+    enable-all: true
+    disable:
+      - shadow
+      - fieldalignment
+
+  revive:
+    severity: warning
+    rules:
+      - name: indent-error-flow
+      - name: unexported-return
+
+linters:
+  enable:
+    - govet
+    - staticcheck
+    - ineffassign
+    - unused
+    - gosimple
+    - typecheck
+    - errcheck
+    - gocyclo
+    - dupl
+    - revive
+    - stylecheck
+    - misspell
+    - whitespace
+
+issues:
+  exclude-use-default: false
+
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - dupl
+        - errcheck
+
+    - linters:
+        - lll
+      text: "logger"
+
+    - path: ".*generated.*"
+      linters:
+        - errcheck
+        - staticcheck
