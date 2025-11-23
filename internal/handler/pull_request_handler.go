@@ -121,7 +121,7 @@ func (h *PullRequestHandler) ReassignReviewer(w http.ResponseWriter, r *http.Req
 			w.WriteHeader(http.StatusConflict)
 			writeError(w, domain.NewErrorResponse("PR_MERGED", "cannot reassign on merged PR"))
 		case domain.ErrReviewerNotAssigned:
-			writeError(w, domain.NewErrorResponse("NOT_ASSIGNED", "reviewer is not assigned to this PR"))
+			writeError(w, domain.NewErrorResponse("NOT_FOUND", "resource not found"))
 		case domain.ErrNoCandidate:
 			writeError(w, domain.NewErrorResponse("NO_CANDIDATE", "no active replacement candidate in team"))
 		default:
